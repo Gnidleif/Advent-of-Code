@@ -30,30 +30,36 @@ namespace C_
             }
         }
 
-        public int Part1()
+        public int Part1
         {
-            int sum = 0;
-            for (int i = 0; i < this.Input.Count; i++)
+            get 
             {
-                if (this.Input[i] == this.Input[(i + 1) % this.Input.Count])
+                int sum = 0;
+                for (int i = 0; i < this.Input.Count; i++)
                 {
-                    sum += this.Input[i];
+                    if (this.Input[i] == this.Input[(i + 1) % this.Input.Count])
+                    {
+                        sum += this.Input[i];
+                    }
                 }
+                return sum;
             }
-            return sum;
         }
 
-        public int Part2()
+        public int Part2
         {
-            int sum = 0;
-            for(int i = 0; i < this.Input.Count; i++)
+            get
             {
-                if(this.Input[i] == this.Input[(i + this.Input.Count / 2) % this.Input.Count])
+                int sum = 0;
+                for(int i = 0; i < this.Input.Count; i++)
                 {
-                    sum += this.Input[i];
+                    if(this.Input[i] == this.Input[(i + this.Input.Count / 2) % this.Input.Count])
+                    {
+                        sum += this.Input[i];
+                    }
                 }
+                return sum;
             }
-            return sum;
         }
     }
 }
