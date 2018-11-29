@@ -7,7 +7,7 @@ namespace C_
     public class Day02 : IDay
     {
         public List<List<int>> Input { get; private set; }
-        
+
         public Day02(string data)
         {
             if(data == null) 
@@ -38,16 +38,27 @@ namespace C_
             }
         }
 
-        public int Part1()
-        {
-            int sum = 0;
-            this.Input.ForEach(i => sum += (i.Max() - i.Min()));
-            return sum;
-        }
+        public int Part1() => this.Input.Sum(item => item.Max() - item.Min());
 
-        public int Part2()
+        public int Part2() => this.Input.Sum(item => this.FindDivision(item));
+
+        private int FindDivision(List<int> item)
         {
-            throw new System.NotImplementedException();
+            for(int i = 0; i < item.Count; i++)
+            {
+                for(int j = i + 1; j < item.Count; j++)
+                {
+                    if(item[i] % item[j] == 0)
+                    {
+                        return item[i] / item[j];
+                    }
+                    else if(item[j] % item[i] == 0)
+                    {
+                        return item[j] / item[i];
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

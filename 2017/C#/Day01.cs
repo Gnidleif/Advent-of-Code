@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace C_
@@ -13,7 +14,7 @@ namespace C_
             {
                 throw new ArgumentNullException("data parameter can't be null");
             }
-            
+
             if(data.Length == 0) 
             {
                 throw new ArgumentException("data parameter can't be zero-length");
@@ -31,30 +32,16 @@ namespace C_
             }
         }
 
-        public int Part1()
-        {
-            int sum = 0;
-            for (int i = 0; i < this.Input.Count; i++)
-            {
-                if (this.Input[i] == this.Input[(i + 1) % this.Input.Count])
-                {
-                    sum += this.Input[i];
-                }
-            }
-            return sum;
-        }
+        public int Part1() => (
+            from i in Enumerable.Range(0, this.Input.Count) 
+            where this.Input[i] == this.Input[(i + 1) % this.Input.Count] 
+            select this.Input[i]
+        ).Sum();
 
-        public int Part2()
-        {
-            int sum = 0;
-            for(int i = 0; i < this.Input.Count; i++)
-            {
-                if(this.Input[i] == this.Input[(i + this.Input.Count / 2) % this.Input.Count])
-                {
-                    sum += this.Input[i];
-                }
-            }
-            return sum;
-        }
+        public int Part2() => (
+            from i in Enumerable.Range(0, this.Input.Count)
+            where this.Input[i] == this.Input[(i + this.Input.Count / 2) % this.Input.Count]
+            select this.Input[i]
+        ).Sum();
     }
 }
