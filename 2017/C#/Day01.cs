@@ -13,6 +13,7 @@ namespace C_
             {
                 throw new ArgumentNullException("data parameter can't be null");
             }
+            
             if(data.Length == 0) 
             {
                 throw new ArgumentException("data parameter can't be zero-length");
@@ -30,36 +31,30 @@ namespace C_
             }
         }
 
-        public int Part1
+        public int Part1()
         {
-            get 
+            int sum = 0;
+            for (int i = 0; i < this.Input.Count; i++)
             {
-                int sum = 0;
-                for (int i = 0; i < this.Input.Count; i++)
+                if (this.Input[i] == this.Input[(i + 1) % this.Input.Count])
                 {
-                    if (this.Input[i] == this.Input[(i + 1) % this.Input.Count])
-                    {
-                        sum += this.Input[i];
-                    }
+                    sum += this.Input[i];
                 }
-                return sum;
             }
+            return sum;
         }
 
-        public int Part2
+        public int Part2()
         {
-            get
+            int sum = 0;
+            for(int i = 0; i < this.Input.Count; i++)
             {
-                int sum = 0;
-                for(int i = 0; i < this.Input.Count; i++)
+                if(this.Input[i] == this.Input[(i + this.Input.Count / 2) % this.Input.Count])
                 {
-                    if(this.Input[i] == this.Input[(i + this.Input.Count / 2) % this.Input.Count])
-                    {
-                        sum += this.Input[i];
-                    }
+                    sum += this.Input[i];
                 }
-                return sum;
             }
+            return sum;
         }
     }
 }
