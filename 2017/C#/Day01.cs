@@ -28,11 +28,6 @@ namespace C_
                 }
                 this.Input.Add(temp);
             }
-
-            if(this.Input.Count != data.Length)
-            {
-                throw new ArgumentException("length mismatch");
-            }
         }
 
         public int Part1()
