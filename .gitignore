@@ -1,4 +1,2 @@
-*.dll
-*.pdb
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
