@@ -9,14 +9,14 @@ def part2(nums):
     freqs = {
         current: True
     }
+    i = 0
     while(not found):
-        for i in range(len(nums)):
-            current += nums[i]
-            if current in freqs:
-                found = True
-                break
-            else:
-                freqs[current] = True
+        current += nums[i % len(nums)]
+        if current in freqs:
+            found = True
+        else:
+            freqs[current] = True
+        i += 1
     return current
 
 def readFile(filename):
