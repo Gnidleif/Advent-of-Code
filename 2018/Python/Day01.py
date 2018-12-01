@@ -4,18 +4,13 @@ def part1(nums):
     return sum(nums)
 
 def part2(nums):
-    found = False
     current = 0
-    freqs = {
-        current: True
-    }
+    freqs = set()
+    freqs.add(current)
     i = 0
-    while(not found):
+    while(len(freqs) > i):
         current += nums[i % len(nums)]
-        if current in freqs:
-            found = True
-        else:
-            freqs[current] = True
+        freqs.add(current)
         i += 1
     return current
 
