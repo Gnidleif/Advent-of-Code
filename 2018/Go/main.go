@@ -35,11 +35,41 @@ func Part1(input []string) int {
 			m[k]++
 		}
 	}
+
 	checksum := 1
 	for _, v := range(m) {
 		checksum *= v
 	}
 	return checksum
+}
+
+func SliceCompare(word1, word2 string) string {
+	if len(word1) != len(word2) {
+		return ""
+	}
+	for i := 0; i < len(word1); i++ {
+		a := word1[:i] + word1[i+1:]
+		b := word2[:i] + word2[i+1:]
+
+		if a == b {
+			return a
+		}
+	}
+	return ""
+}
+
+func Part2(input []string) string {
+	for _, word1 := range input {
+		for _, word2 := range input {
+			if word1 == word2 {
+				continue
+			}
+			if res := SliceCompare(word1, word2); res != "" {
+				return res
+			}
+		}
+	}
+	return ""
 }
 
 func main() {
@@ -48,5 +78,7 @@ func main() {
 		panic(err)
 	}
 	input := strings.Split(string(dat), "\n")
-	print(Part1(input))
+	println(Part1(input))
+
+	println(Part2(input))
 }
