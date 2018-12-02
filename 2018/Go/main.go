@@ -79,6 +79,5 @@ func main() {
 	}
 	input := strings.Split(string(dat), "\n")
 	println(Part1(input))
-
 	println(Part2(input))
 }
