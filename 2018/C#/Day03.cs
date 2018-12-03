@@ -23,17 +23,6 @@ namespace AoC
                     }
                 }
             }
-
-            public HashSet<Tuple<int,int>> GetOverlaps(HashSet<Tuple<int,int>> other)
-            {
-                var result = new HashSet<Tuple<int,int>>();
-                if(this.Coords.Overlaps(other))
-                {
-                    result.UnionWith(this.Coords);
-                    result.IntersectWith(other);
-                }
-                return result;
-            }
         }
 
         private List<Claim> Claims { get; set; }
@@ -61,19 +50,26 @@ namespace AoC
 
         public int Part1()
         {
-            var all = new HashSet<Tuple<int,int>>();
-            foreach(var item in this.Claims)
-            {
-                foreach(var other in this.Claims)
+            var points = new Dictionary<Tuple<int,int>, int>();
+            this.Claims.ForEach(item => {
+                foreach(var coord in item.Coords)
                 {
-                    if(item.Id == other.Id)
+                    if(!points.ContainsKey(coord)) 
                     {
-                        continue;
+                        points.Add(coord, 0);
                     }
-                    all.UnionWith(item.GetOverlaps(other.Coords));
+                    points[coord]++;
+                }
+            });
+            int total = 0;
+            foreach(KeyValuePair<Tuple<int,int>, int> pair in points)
+            {
+                if(pair.Value > 1)
+                {
+                    total++;
                 }
             }
-            return all.Count;
+            return total;
         }
 
         public int Part2()
