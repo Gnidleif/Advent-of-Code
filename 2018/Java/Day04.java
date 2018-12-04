@@ -38,6 +38,10 @@ public class main {
 			things.add(new DateLine(fmt.parse(m.group(1)), m.group(3)));
 		}
 		Collections.sort(things);
+		
+		for(int i = 0; i < things.size(); i++) {
+			System.out.println(things.get(i).command);
+		}
 		return 0;
 	}
 	
