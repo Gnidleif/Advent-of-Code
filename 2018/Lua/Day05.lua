@@ -17,9 +17,12 @@ function part2(line)
     local abet = "abcdefghijklmnopqrstuvwxyz"
     local lowest = #line
     for i = 1, #abet do
-        local num = part1(remove_char(line, abet:sub(i,i)), 1)
-        if num < lowest then
-            lowest = num
+        local sub = remove_char(line, abet:sub(i,i))
+        if #sub ~= #line then
+            local num = part1(sub, 1)
+            if num < lowest then
+                lowest = num
+            end
         end
     end
     return lowest
