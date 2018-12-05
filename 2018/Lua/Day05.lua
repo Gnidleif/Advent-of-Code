@@ -1,25 +1,7 @@
-function part1(line)
-    return reduce(line, 1)
-end
-
-function part2(line)
-    local lowest = #line
-    local abet = get_alphabet()    
-    -- the length of the original line is as long as it's going to get
-    for _, char in pairs(abet) do
-        local sub = remove_char(line, char)
-        -- if nothing was removed, there's no need to reduce
-        if #sub ~= #line then
-            local num = reduce(sub, 1)
-            if num < #sub and  num < lowest then
-                lowest = num
-            end
-        end
+function part1(line, start)
+    if start == nil then
+        start = 1
     end
-    return lowest
-end
-
-function reduce(line, start)
     for i = start, #line-1 do
         -- string.byte("A") == 65, string.byte("a") == 97
         -- 97-65 == 32, 65-97 == -32
@@ -32,26 +14,28 @@ function reduce(line, start)
             if idx < 1 then
                 idx = 1
             end
-            return reduce(spliced, idx)
+            return part1(spliced, idx)
         end
     end
     return #line
 end
 
-local run_check = coroutine.create(function(str)
+function part2(line)
+    local lowest = #line
     local abet = get_alphabet()    
     -- the length of the original line is as long as it's going to get
     for _, char in pairs(abet) do
-        local sub = remove_char(str, char)
+        local sub = remove_char(line, char)
         -- if nothing was removed, there's no need to reduce
-        if #sub ~= #str then
-            local num = reduce(sub, 1)
-            if num < #sub then
-                coroutine.yield(num)
+        if #sub ~= #line then
+            local num = part1(sub, 1)
+            if num < #sub and  num < lowest then
+                lowest = num
             end
         end
     end
-end)
+    return lowest
+end
 
 function remove_char(line, char)
     -- pattern should be ['CHAR''char'] to find any occurence of the char
