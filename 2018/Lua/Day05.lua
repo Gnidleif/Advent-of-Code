@@ -28,12 +28,12 @@ function reduce(line, start)
         if res == 32 or res == -32 then
             -- splices the string to remove the reductionable pair
             -- note: if i-1 == 0 the function still works
-            local tmp = string.format("%s%s", line:sub(1,i-1), line:sub(i+2))
             local idx = i-1
-            if i == 1 then
+            local spliced = line:sub(1,idx) .. line:sub(i+2)
+            if idx < 1 then
                 idx = 1
             end
-            return reduce(tmp, idx)
+            return reduce(spliced, idx)
         end
     end
     return #line
@@ -66,7 +66,9 @@ function file_exists(file)
 end
 
 function read_file(file)
-    if not file_exists(file) then return {} end
+    if not file_exists(file) then 
+        return {} 
+    end
     lines = {}
     for line in io.lines(file) do
         lines[#lines+1] = line
@@ -77,7 +79,7 @@ end
 function get_alphabet()
     local letters = {}
     for ascii = 97, 122 do
-        table.insert(letters, string.char(ascii))
+        letters[#letters+1] = string.char(ascii)
     end
     return letters
 end
