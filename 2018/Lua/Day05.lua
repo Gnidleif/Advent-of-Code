@@ -4,10 +4,16 @@ end
 
 function part2(line)
     local lowest = #line
-    while(coroutine.status(run_check) ~= "dead") do
-        local _, num = coroutine.resume(run_check, line)
-        if num ~= nil and num < lowest then
-            lowest = num
+    local abet = get_alphabet()    
+    -- the length of the original line is as long as it's going to get
+    for _, char in pairs(abet) do
+        local sub = remove_char(line, char)
+        -- if nothing was removed, there's no need to reduce
+        if #sub ~= #line then
+            local num = reduce(sub, 1)
+            if num < #sub and  num < lowest then
+                lowest = num
+            end
         end
     end
     return lowest
