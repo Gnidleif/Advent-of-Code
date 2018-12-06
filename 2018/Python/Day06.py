@@ -10,8 +10,7 @@ def distanceFrom(a, b):
     return abs(a[0]-b[0]) + abs(a[1]-b[1])
 
 def inBounds(p, bounds):
-    return (p[0] > bounds["min"][0] and p[0] < bounds["max"][0]
-    and p[1] > bounds["min"][1] and p[1] < bounds["max"][1])
+    return (p[0] > bounds["min"][0] and p[0] < bounds["max"][0] and p[1] > bounds["min"][1] and p[1] < bounds["max"][1])
 
 def calcBounds(points):
     x_coords, y_coords = zip(*points)
