@@ -6,7 +6,9 @@ function part1(line, start)
         -- string.byte("A") == 65, string.byte("a") == 97
         -- 97-65 == 32, 65-97 == -32
         local slice = line:sub(i,i+1)
-        if math.abs(slice:sub(1,1):byte() - slice:sub(2,2):byte()) == 32 then
+        local a = slice:sub(1,1):byte()
+        local b = slice:sub(2,2):byte()
+        if math.abs(a - b) == 32 then
             -- splices the string to remove the reductionable pair
             -- note: if i-1 == 0 the function still works
             local idx = i-1
@@ -22,14 +24,14 @@ end
 
 function part2(line)
     local lowest = #line
-    local abet = get_alphabet()    
+    local abet = get_alphabet()
     -- the length of the original line is as long as it's going to get
     for _, char in pairs(abet) do
         local sub = remove_char(line, char)
         -- if nothing was removed, there's no need to reduce
         if #sub ~= #line then
             local num = part1(sub, 1)
-            if num < #sub and  num < lowest then
+            if num < #sub and num < lowest then
                 lowest = num
             end
         end
