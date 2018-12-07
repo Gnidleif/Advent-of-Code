@@ -52,14 +52,12 @@ def part2(areas, bounds, limit):
 
     return len(points)
 
-def readPoints(filename):
-    with open(filename, 'r') as f:
-        lines = f.read().splitlines()
 
-    return [Area([int(s[0]), int(s[1])]) for s in [line.split(", ") for line in lines]]
+def readAreas(filename):
+    return [Area(p) for p in [[int(lst[0]), int(lst[1])] for lst in [line.split(", ") for line in open("Day06.txt", 'r').read().splitlines()]]]
 
 if __name__ == "__main__":
-    areas = readPoints("Day06.txt")
+    areas = readAreas("Day06.txt")
     bounds = calcBounds([a.pos for a in areas])
 
     print(part1(areas, bounds))
