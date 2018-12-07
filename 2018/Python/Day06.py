@@ -3,7 +3,7 @@ import os, math
 class Area:
     def __init__(self, p):
         self.pos = p
-        self.valid = True
+        self.infinite = False
         self.count = 0
 
 def distanceFrom(a, b):
@@ -33,12 +33,12 @@ def part1(areas, bounds):
             if idx >= 0:
                 areas[idx].count += 1
                 if not inBounds(current, bounds):
-                    areas[idx].valid = False
+                    areas[idx].infinite = True
 
-    return max([a.count for a in areas if a.valid])
+    return max([a.count for a in areas if not a.infinite])
 
 def part2(areas, bounds, limit):
-    valid = 0
+    points = set()
     for x in range(bounds["min"][0], bounds["max"][0]+1):
         for y in range(bounds["min"][1], bounds["max"][1]+1):
             total = 0
@@ -48,18 +48,18 @@ def part2(areas, bounds, limit):
                 if total >= limit:
                     break
             if total < limit:
-                valid += 1
+                points.add("{},{}".format(current[0], current[1]))
 
-    return valid
+    return len(points)
 
 def readPoints(filename):
     with open(filename, 'r') as f:
         lines = f.read().splitlines()
 
-    return [[int(lst[0]), int(lst[1])] for lst in [line.split(", ") for line in lines]]
+    return [Area([int(s[0]), int(s[1])]) for s in [line.split(", ") for line in lines]]
 
 if __name__ == "__main__":
-    areas = [Area(p) for p in readPoints("Day06.txt")]
+    areas = readPoints("Day06.txt")
     bounds = calcBounds([a.pos for a in areas])
 
     print(part1(areas, bounds))
