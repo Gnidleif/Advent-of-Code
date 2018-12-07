@@ -49,5 +49,5 @@ def part1(queue):
             result.extend(active)
     return ''.join(result)
 
-queue = buildQueue(filterLines(readFile("Day07.txt"))) # AFBDE
+queue = buildQueue(filterLines(readFile("Day07.txt")))
 print(part1(queue))
